@@ -20,8 +20,18 @@ form.addEventListener('submit', async (e) => {
       const weatherData = await response.json();
       const photoData = await responsePhoto.json();
 
+      const temperatureElement = document.getElementById('temperature-chart');
+      const descriptionElement = document.getElementById('description');
       const cityPhoto = document.getElementById('city-photo');
-      cityPhoto.src = photoData.urls.regular;
+
+      temperatureElement.textContent = `${weatherData.main.temp}°C`;
+      descriptionElement.textContent = weatherData.weather[0].description;
+
+      if (photoData.urls && photoData.urls.regular) {
+        cityPhoto.src = photoData.urls.regular;
+      } else {
+        cityPhoto = 'assets/pictures/imageRemplacement.jpg';
+      }
 
     } catch (error) {
       console.log(error);
@@ -30,6 +40,7 @@ form.addEventListener('submit', async (e) => {
       loader.classList.add('loader-hidden');
     }
   };
+
 
   fetchWeather();
 });
