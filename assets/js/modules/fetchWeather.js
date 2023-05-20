@@ -1,6 +1,6 @@
 import { apiWeatherKey } from './keys.js';
 
-const apiWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather';
+const apiWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 
 // Fonction pour effectuer la requête météo et afficher les résultats
 export async function fetchWeather(city) {
@@ -14,18 +14,8 @@ export async function fetchWeather(city) {
     const temperatureElement = document.getElementById('temperature-chart');
     const descriptionElement = document.getElementById('description');
 
-    temperatureElement.textContent = `${weatherData.main.temp}°C`;
-
-    const temperatureKelvin = weatherData.main.temp;
-    const temperatureCelsius = temperatureKelvin - 273.15;
-    
-    temperatureElement.textContent = `${temperatureCelsius.toFixed(2)}°C`;
-    
-
-    descriptionElement.textContent = weatherData.weather[0].description;
-
-    const temperatureData = [];
-    temperatureData.push(temperatureCelsius);
+    const temperatureData = weatherData.list.map(item => item.main.temp - 273.15);
+    const dates = weatherData.list.map(item => new Date(item.dt * 1000));
 
     const chartOptions = {
       responsive: true,
@@ -33,7 +23,7 @@ export async function fetchWeather(city) {
     };
 
     const chartData = {
-      labels: ['Temperature'],
+      labels: dates,
       datasets: [
         {
           label: 'Temperature',
@@ -50,6 +40,7 @@ export async function fetchWeather(city) {
       data: chartData,
       options: chartOptions,
     });
+
 
   } catch (error) {
     console.log(error);
