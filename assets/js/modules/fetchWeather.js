@@ -1,5 +1,6 @@
-import { apiUnsplashKey, apiWeatherKey } from "./keys.js";
-import { apiWeatherUrl, apiUnsplashUrl } from "../script.js";
+import { apiWeatherKey } from './keys.js';
+
+const apiWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
 // Fonction pour effectuer la requête météo et afficher les résultats
 export async function fetchWeather(city) {
@@ -8,14 +9,10 @@ export async function fetchWeather(city) {
     loader.classList.remove('loader-hidden');
 
     const response = await fetch(`${apiWeatherUrl}?q=${city}&appid=${apiWeatherKey}`);
-    const responsePhoto = await fetch(`${apiUnsplashUrl}/photos/random?query=${city}&client_id=${apiUnsplashKey}`);
-
     const weatherData = await response.json();
-    const photoData = await responsePhoto.json();
 
     const temperatureElement = document.getElementById('temperature-chart');
     const descriptionElement = document.getElementById('description');
-    const cityPhoto = document.getElementById('city-photo');
 
     temperatureElement.textContent = `${weatherData.main.temp}°C`;
     descriptionElement.textContent = weatherData.weather[0].description;
@@ -46,12 +43,6 @@ export async function fetchWeather(city) {
       data: chartData,
       options: chartOptions,
     });
-
-    if (photoData.urls && photoData.urls.regular) {
-      cityPhoto.src = photoData.urls.regular;
-    } else {
-      cityPhoto.src = 'assets/pictures/imageRemplacement.jpg';
-    }
 
   } catch (error) {
     console.log(error);
