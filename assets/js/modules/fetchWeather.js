@@ -15,10 +15,17 @@ export async function fetchWeather(city) {
     const descriptionElement = document.getElementById('description');
 
     temperatureElement.textContent = `${weatherData.main.temp}°C`;
+
+    const temperatureKelvin = weatherData.main.temp;
+    const temperatureCelsius = temperatureKelvin - 273.15;
+    
+    temperatureElement.textContent = `${temperatureCelsius.toFixed(2)}°C`;
+    
+
     descriptionElement.textContent = weatherData.weather[0].description;
 
     const temperatureData = [];
-    temperatureData.push(weatherData.main.temp);
+    temperatureData.push(temperatureCelsius);
 
     const chartOptions = {
       responsive: true,
