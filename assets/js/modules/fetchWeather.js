@@ -14,8 +14,8 @@ export async function fetchWeather(city) {
     const temperatureElement = document.getElementById('temperature-chart');
     const descriptionElement = document.getElementById('description');
 
-    const temperatureData = weatherData.list.map(item => item.main.temp - 273.15);
-    const dates = weatherData.list.map(item => new Date(item.dt * 1000));
+    const temperatureData = weatherData.list.map(item => (item.main.temp - 273.15).toFixed(2));
+    const dates = weatherData.list.map(item => moment(item.dt * 1000).format('YYYY-MM-DD HH:mm'));
 
     const chartOptions = {
       responsive: true,
@@ -40,8 +40,6 @@ export async function fetchWeather(city) {
       data: chartData,
       options: chartOptions,
     });
-
-
   } catch (error) {
     console.log(error);
   } finally {
