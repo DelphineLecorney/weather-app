@@ -14,4 +14,25 @@ body {
   height: 200px;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 20px;
+}
+
+.header__title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.header__date {
+  font-size: 18px;
+}
+
+.header__time {
+  font-size: 18px;
+  font-weight: bold;
 }/*# sourceMappingURL=style.css.map */

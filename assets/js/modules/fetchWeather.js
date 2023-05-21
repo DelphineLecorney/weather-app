@@ -25,6 +25,7 @@ export async function fetchWeather(city) {
     const minTemperatureData = [];
     const maxTemperatureData = [];
 
+
     groupedData.forEach(dayData => {
       const date = moment(dayData[0].dt * 1000).format('YYYY-MM-DD');
       const minTemp = Math.min(...dayData.map(item => item.main.temp - 273.15));
