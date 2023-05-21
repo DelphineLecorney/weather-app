@@ -5,7 +5,8 @@ const form = document.querySelector('.weather-form');
 const cityInput = document.querySelector('#city-input');
 
 
-// Fonction pour gérer la soumission du formulaire
+/* Function to manage the submission of the form */
+
 const handleFormSubmit = async (e) => {
   e.preventDefault();
   const city = cityInput.value;

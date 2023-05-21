@@ -1,8 +1,13 @@
+import { groupWeatherData } from './groupWeatherData.js';
 import { apiWeatherKey } from './keys.js';
 
 const apiWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 
-// Fonction pour effectuer la requête météo et afficher les résultats
+/* function makes a request to the weather API, 
+processes the received data, groups them by day, 
+displays them on a graph and shows the current weather description.
+*/
+
 export async function fetchWeather(city) {
   try {
     const loader = document.getElementById('loader');
@@ -14,9 +19,21 @@ export async function fetchWeather(city) {
     const temperatureElement = document.getElementById('temperature-chart');
     const descriptionElement = document.getElementById('description');
 
-    const temperatureData = weatherData.list.map(item => (item.main.temp - 273.15).toFixed(1));
-    const descriptionData = weatherData.list.map(item => item.weather[0].description);
-    const dates = weatherData.list.map(item => moment(item.dt * 1000).format('YYYY-MM-DD HH:mm'));
+    const groupedData = groupWeatherData(weatherData.list);
+
+    const dates = [];
+    const minTemperatureData = [];
+    const maxTemperatureData = [];
+
+    groupedData.forEach(dayData => {
+      const date = moment(dayData[0].dt * 1000).format('YYYY-MM-DD');
+      const minTemp = Math.min(...dayData.map(item => item.main.temp - 273.15));
+      const maxTemp = Math.max(...dayData.map(item => item.main.temp - 273.15));
+
+      dates.push(date);
+      minTemperatureData.push(minTemp.toFixed(1));
+      maxTemperatureData.push(maxTemp.toFixed(1));
+    });
 
     const chartOptions = {
       responsive: true,
@@ -27,10 +44,17 @@ export async function fetchWeather(city) {
       labels: dates,
       datasets: [
         {
-          label: 'Temperature',
-          data: temperatureData,
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
+          label: 'Min Temperature',
+          data: minTemperatureData,
+          backgroundColor: 'transparent',
+          borderColor: 'rgba(192, 75, 75, 1)',
+          borderWidth: 1,
+        },
+        {
+          label: 'Max Temperature',
+          data: maxTemperatureData,
+          backgroundColor: 'transparent',
+          borderColor: 'rgba(75, 192, 75, 1)',
           borderWidth: 1,
         },
       ],
@@ -42,7 +66,7 @@ export async function fetchWeather(city) {
       options: chartOptions,
     });
 
-    const currentDescription = descriptionData[0];
+    const currentDescription = groupedData[0][0].weather[0].description;
     descriptionElement.textContent = currentDescription;
 
   } catch (error) {
@@ -52,3 +76,5 @@ export async function fetchWeather(city) {
     loader.classList.add('loader-hidden');
   }
 }
+
+

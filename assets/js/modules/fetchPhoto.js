@@ -2,7 +2,7 @@ import { apiUnsplashKey } from "./keys.js";
 
 const apiUnsplashUrl = 'https://api.unsplash.com';
 
-// Fonction pour effectuer la requête Unsplash et afficher une photo
+// Function to make the Unsplash request and display a photo
 export async function fetchPhoto(city) {
   try {
     const response = await fetch(`${apiUnsplashUrl}/photos/random?query=${city}&client_id=${apiUnsplashKey}`);
