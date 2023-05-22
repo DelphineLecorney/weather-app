@@ -1,33 +1,92 @@
 body {
-    background-color: rgba(75, 192, 192, 0.2);
+  background-color: rgba(75, 192, 192, 0.2);
 }
+
 #city-photo {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
 }
+
 .weather-results__temperature-chart {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
+
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 20px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 20px;
+}
 
-  .header__title {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
+.header__title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
 
-  .header__date {
-    font-size: 18px;
-  }
+.header__date {
+  font-size: 18px;
+}
 
-  .header__time {
-    font-size: 18px;
-    font-weight: bold;
+.header__time {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.weather-results__data-container {
+  display: flex;
+  overflow-x: auto;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 20px;
+  justify-content: flex-start;
+}
+
+
+.weather-results__day-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: rgb(138, 196, 237);
+}
+
+.weather-results__day-display:last-child {
+  margin-right: 0;
+}
+
+.weather-results__day-heading,
+.weather-results__temperature,
+.weather-results__weather-description,
+.weather-results__sunrise,
+.weather-results__sunset {
+  text-align: center;
+}
+.weather-results__sunrise,
+.weather-results__sunset {
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: inline-block;
+  padding-left: 20px;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: left center;
+}
+
+.weather-results__sunrise {
+  background-image: url('path/to/sunrise-image.jpg');
+}
+
+.weather-results__sunset {
+  background-image: url('path/to/sunset-image.jpg');
+}
+@media screen and (max-width: 768px) {
+  .weather-results__data-container {
+    flex-direction: column;
   }
+}

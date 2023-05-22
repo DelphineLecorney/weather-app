@@ -13,7 +13,7 @@
 
 ### Create an account on OpenWeather and generate a key
 
-#####* Get the weather data using the native JS fetch() method.*
+##### Get the weather data using the native JS fetch() method.
 > A typical HTTP flow: send asynchronous requests to a remote server and process the results
 > DOM manipulation: modifying the DOM based on the results of HTTP requests DOM manipulation: modifying the DOM based on the results of HTTP requests
 
@@ -21,11 +21,16 @@
 
 ###  References
 > [Api Weather](https://openweathermap.org/appid "Api")
-[Api Unsplash](https://unsplash.com/documentation "Api Unsplash")
-[Api Ninjas](https://api-ninjas.com/ "Api Ninjas")
-[Fetch Api](https://devdocs.io/dom/fetch_api/using_fetch "Fetch Api")
-[Chart.js](https://www.chartjs.org/docs/latest/charts/line.html "Chart.js")
-[Manipulate Date](https://momentjs.com/ "Manipulate Date")
+
+> [Api Unsplash](https://unsplash.com/documentation "Api Unsplash")
+
+> [Api Ninjas](https://api-ninjas.com/ "Api Ninjas")
+
+> [Fetch Api](https://devdocs.io/dom/fetch_api/using_fetch "Fetch Api")
+
+> [Chart.js](https://www.chartjs.org/docs/latest/charts/line.html "Chart.js")
+
+> [Manipulate Date](https://momentjs.com/ "Manipulate Date")
 
 ------------
 

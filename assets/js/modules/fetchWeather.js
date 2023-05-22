@@ -46,7 +46,7 @@ export async function fetchWeather(city) {
       const sunset = moment.unix(weatherData.city.sunset).format('HH:mm');
 
       const dayDisplay = document.createElement('div');
-      dayDisplay.classList.add('weather-results__day-column');
+      dayDisplay.classList.add('weather-results__day-display');
 
       const dayHeading = document.createElement('h2');
       dayHeading.textContent = moment(date).format('dddd D MMMM YYYY');
