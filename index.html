@@ -27,6 +27,7 @@
         <label for="city-input" class="weather-formlabel">City :</label>
         <input id="city-input" type="text" class="weather-forminput" placeholder="Enter a city">
       </div>
+
       <button type="submit" class="weather-formsubmit-button">Search</button>
     </form>
 
@@ -39,18 +40,10 @@
       <div class="weather-results__temperature-chart">
         <canvas id="temperature-chart" class="weather-results__chart"></canvas>
       </div>
-      <div class="weather-results__description">
-        <p id="description" class="weather-results__description-text"></p>
-        <p id="temperature" class="weather-results__description-text"></p>
-        <p id="humidity" class="weather-results__description-text"></p>
-        <p id="wind" class="weather-results__description-text"></p>
-        <p id="rain" class="weather-results__description-text"></p>
-        <p id="sunrise" class="weather-results__description-text"></p>
-        <p id="sunset" class="weather-results__description-text"></p>
-      </div>
+
+      <div class="weather-results__data-container" id="data-container"></div>
+
     </div>
-
-
   </main>
 </body>
 

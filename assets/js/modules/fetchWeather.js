@@ -3,11 +3,6 @@ import { apiWeatherKey } from './keys.js';
 
 const apiWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 
-/* function makes a request to the weather API, 
-processes the received data, groups them by day, 
-displays them on a graph and shows the current weather description.
-*/
-
 export async function fetchWeather(city) {
   try {
     const loader = document.getElementById('loader');
@@ -17,7 +12,6 @@ export async function fetchWeather(city) {
     const weatherData = await response.json();
 
     const temperatureElement = document.getElementById('temperature-chart');
-    const descriptionElement = document.getElementById('description');
 
     const groupedData = groupWeatherData(weatherData.list);
 
@@ -25,15 +19,56 @@ export async function fetchWeather(city) {
     const minTemperatureData = [];
     const maxTemperatureData = [];
 
-
     groupedData.forEach(dayData => {
-      const date = moment(dayData[0].dt * 1000).format('YYYY-MM-DD');
+      const date = moment(dayData[0].dt_txt).format('YYYY-MM-DD');
       const minTemp = Math.min(...dayData.map(item => item.main.temp - 273.15));
       const maxTemp = Math.max(...dayData.map(item => item.main.temp - 273.15));
 
       dates.push(date);
       minTemperatureData.push(minTemp.toFixed(1));
       maxTemperatureData.push(maxTemp.toFixed(1));
+    });
+
+    const dataContainer = document.getElementById('data-container');
+    dataContainer.innerHTML = '';
+
+    groupedData.forEach((dayData) => {
+      const date = moment(dayData[0].dt_txt).format('YYYY-MM-DD');
+      const minTemp = Math.min(...dayData.map(item => item.main.temp - 273.15));
+      const maxTemp = Math.max(...dayData.map(item => item.main.temp - 273.15));
+      const weatherDescription = dayData[0].weather[0].description;
+      const sunrise = moment.unix(weatherData.city.sunrise).format('HH:mm');
+      const sunset = moment.unix(weatherData.city.sunset).format('HH:mm');
+
+      const dayDisplay = document.createElement('div');
+      dayDisplay.classList.add('weather-results__day-column');
+
+      const dayHeading = document.createElement('h2');
+      dayHeading.textContent = moment(date).format('dddd D MMMM YYYY');
+
+      const minTempElement = document.createElement('p');
+      minTempElement.textContent = `Min Temperature: ${minTemp.toFixed(1)}°C`;
+
+      const maxTempElement = document.createElement('p');
+      maxTempElement.textContent = `Max Temperature: ${maxTemp.toFixed(1)}°C`;
+
+      const weatherDescElement = document.createElement('p');
+      weatherDescElement.textContent = `Weather Description: ${weatherDescription}`;
+
+      const sunriseElement = document.createElement('p');
+      sunriseElement.textContent = `Sunrise: ${sunrise}`;
+
+      const sunsetElement = document.createElement('p');
+      sunsetElement.textContent = `Sunset: ${sunset}`;
+
+      dayDisplay.appendChild(dayHeading);
+      dayDisplay.appendChild(minTempElement);
+      dayDisplay.appendChild(maxTempElement);
+      dayDisplay.appendChild(weatherDescElement);
+      dayDisplay.appendChild(sunriseElement);
+      dayDisplay.appendChild(sunsetElement);
+
+      dataContainer.appendChild(dayDisplay);
     });
 
     const chartOptions = {
@@ -67,8 +102,6 @@ export async function fetchWeather(city) {
       options: chartOptions,
     });
 
-    const currentDescription = groupedData[0][0].weather[0].description;
-    descriptionElement.textContent = currentDescription;
 
   } catch (error) {
     console.log(error);
@@ -77,5 +110,3 @@ export async function fetchWeather(city) {
     loader.classList.add('loader-hidden');
   }
 }
-
-
