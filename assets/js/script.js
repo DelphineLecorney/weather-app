@@ -1,5 +1,7 @@
+import { autocompleteCityInput } from "./modules/autocompleteCityInput.js";
 import { fetchPhoto } from "./modules/fetchPhoto.js";
 import { fetchWeather } from "./modules/fetchWeather.js";
+import { apiCityKey } from "./modules/keys.js";
 import { updateDateTime } from "./modules/updateDateTime.js";
 
 const form = document.querySelector('.weather-form');
@@ -31,3 +33,4 @@ cityInput.addEventListener('keypress', (e) => {
   }
 });
 
+autocompleteCityInput(cityInput, apiCityKey);

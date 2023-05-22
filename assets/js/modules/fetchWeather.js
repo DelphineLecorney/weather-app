@@ -3,11 +3,13 @@ import { apiWeatherKey } from './keys.js';
 
 const apiWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast';
 
+
+// Function asynchronous takes a city parameter
 export async function fetchWeather(city) {
   try {
     const loader = document.getElementById('loader');
     loader.classList.remove('loader-hidden');
-
+    // Executes and sends a GET request with parameters city and key
     const response = await fetch(`${apiWeatherUrl}?q=${city}&appid=${apiWeatherKey}`);
     const weatherData = await response.json();
 
@@ -19,6 +21,8 @@ export async function fetchWeather(city) {
     const minTemperatureData = [];
     const maxTemperatureData = [];
 
+    // Extract date, the min and max temperature for each day and add to the arrays
+    // For the chart
     groupedData.forEach(dayData => {
       const date = moment(dayData[0].dt_txt).format('YYYY-MM-DD');
       const minTemp = Math.min(...dayData.map(item => item.main.temp - 273.15));
@@ -32,6 +36,7 @@ export async function fetchWeather(city) {
     const dataContainer = document.getElementById('data-container');
     dataContainer.innerHTML = '';
 
+    // Extract weather descriptions for each day and display in the container
     groupedData.forEach((dayData) => {
       const date = moment(dayData[0].dt_txt).format('YYYY-MM-DD');
       const minTemp = Math.min(...dayData.map(item => item.main.temp - 273.15));
@@ -71,6 +76,9 @@ export async function fetchWeather(city) {
       dataContainer.appendChild(dayDisplay);
     });
 
+
+    // Create an instance with elements, data, options for visualize a line chart 
+    // on the web page
     const chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
