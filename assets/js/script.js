@@ -3,6 +3,8 @@ import { fetchPhoto } from "./modules/fetchPhoto.js";
 import { fetchWeather } from "./modules/fetchWeather.js";
 import { apiCityKey } from "./modules/keys.js";
 import { updateDateTime } from "./modules/updateDateTime.js";
+import { addCity } from "./modules/addCity.js";
+
 
 const form = document.querySelector('.weather-form');
 const cityInput = document.querySelector('#city-input');
@@ -17,8 +19,10 @@ setInterval(updateDateTime, 1000);
 const handleFormSubmit = async (e) => {
   e.preventDefault();
   const city = cityInput.value;
+
   await fetchWeather(city);
   await fetchPhoto(city);
+  addCity(city);
 
   // Store the city in local storage
   localStorage.setItem('lastSubmittedCity', city);

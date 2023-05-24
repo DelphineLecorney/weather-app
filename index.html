@@ -14,22 +14,25 @@
 
 <body>
   <header class="header">
-    <div>
+    <div class="header__content">
       <h1 class="header__title">Weather App</h1>
       <div class="header__date" id="date"></div>
+      <div class="header__time" id="time"></div>
     </div>
-    <div class="header__time" id="time"></div>
+    <nav class="header__nav">
+      <form class="weather-form">
+        <label for="city-input" class="weather-form__label">City:</label>
+        <input id="city-input" type="text" class="weather-form__input" placeholder="Enter a city">
+        <button type="submit" class="weather-form__submit-button">Search</button>
+      </form>
+      <button id="add-city-button" class="weather-form__add-city-button">Add City</button>
+      <button id="delete-button" class="weather-form__delete-button">Delete</button>
+    </nav>
   </header>
+  
 
   <main class="main">
-    <form class="weather-form">
-      <label for="city-input" class="weather-formlabel">City :</label>
-      <input id="city-input" type="text" class="weather-forminput" placeholder="Enter a city">
-      <button type="submit" class="weather-formsubmit-button">Search</button>
-    </form>
-  
-    <button id="delete-button" class="weather-formdelete-button">Delete</button>
-  
+
     <div id="loader" class="loader-hidden"></div>
   
     <section class="weather-results">
@@ -41,6 +44,11 @@
       </div>
       <article class="weather-results__data-container" id="data-container"></article>
     </section>
+
+    <section class="added-cities">
+      <div id="added-cities-container"></div>
+    </section>
+    
   </main>
 </body>
 
