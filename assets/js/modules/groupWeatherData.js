@@ -1,3 +1,4 @@
+// Function takes a data table and groups by dates
 export function groupWeatherData(weatherData) {
   const groupedData = {};
   weatherData.forEach(item => {

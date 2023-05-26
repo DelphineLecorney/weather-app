@@ -3,7 +3,6 @@ import { formatDate } from "./formatDate.js";
 
 export function updateDataContainer(groupedData, cityData) {
   const dataContainer = document.getElementById('data-container');
-  dataContainer.innerHTML = '';
 
   for (const date in groupedData) {
     const dayData = groupedData[date];

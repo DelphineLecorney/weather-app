@@ -3,14 +3,14 @@ import { fetchPhoto } from "./modules/fetchPhoto.js";
 import { fetchWeather } from "./modules/fetchWeather.js";
 import { apiCityKey } from "./modules/keys.js";
 import { updateDateTime } from "./modules/updateDateTime.js";
-import { addCity } from "./modules/addCity.js";
 
 
 const form = document.querySelector('.weather-form');
 const cityInput = document.querySelector('#city-input');
 
-/* Function to update the date and time */
+autocompleteCityInput(cityInput, apiCityKey);
 
+/* Function to update the date and time */
 updateDateTime();
 setInterval(updateDateTime, 1000);
 
@@ -20,13 +20,26 @@ const handleFormSubmit = async (e) => {
   e.preventDefault();
   const city = cityInput.value;
 
-  await fetchWeather(city);
-  await fetchPhoto(city);
-  addCity(city);
+  const weatherPromise = fetchWeather(city);
+  const photoPromise = fetchPhoto(city);
+
+  await Promise.all([weatherPromise, photoPromise]);
 
   // Store the city in local storage
   localStorage.setItem('lastSubmittedCity', city);
+
+  // Create a new element for the selected city
+  const selectedCitiesDiv = document.querySelector('#selected-cities');
+  const newCityElement = document.createElement('div');
+  newCityElement.textContent = city;
+
+  // Add the new city element below the existing ones
+  selectedCitiesDiv.insertAdjacentElement('beforeend', newCityElement);
+
+  // Clear the input field
+  cityInput.value = '';
 };
+
 
 form.addEventListener('submit', handleFormSubmit);
 
@@ -34,17 +47,4 @@ cityInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
     handleFormSubmit(e);
   }
-});
-
-autocompleteCityInput(cityInput, apiCityKey);
-
-/* Delete button functionality */
-
-const deleteButton = document.getElementById('delete-button');
-deleteButton.addEventListener('click', () => {
-  // Remove the city from local storage
-  localStorage.removeItem('lastSubmittedCity');
-
-  // Clear the input field
-  cityInput.value = '';
 });

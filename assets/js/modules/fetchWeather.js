@@ -22,6 +22,7 @@ export async function fetchWeather(city) {
 
     createLineChart(temperatureElement, chartData);
 
+
   } catch (error) {
     console.log(error);
   } finally {
